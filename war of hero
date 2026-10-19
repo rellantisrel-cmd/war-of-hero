@@ -1,0 +1,46 @@
+import random
+class Unit:
+    def __init__(self, number, team):
+        self.number = number
+        self.team = team
+class Hero(Unit):
+    def __init__(self, number, team):
+        super().__init__(number, team)
+        self.level = 1
+    def level_up(self):
+        self.level += 1
+class Soldier(Unit):
+    def __init__(self, number, team):
+        super().__init__(number, team)
+        self.leader = None
+    def follow_hero(self, hero):
+        self.leader = hero
+next_id = 1
+hero1 = Hero(next_id,1)
+next_id += 1
+hero2 = Hero(next_id,2)
+next_id += 1
+team1 = []
+team2 = []
+for _ in range(100):
+    team = random.randint(1, 2)
+    soldier = Soldier(next_id, team)
+    next_id += 1
+    if team == 1:
+        team1.append(soldier)
+    else:
+        team2.append(soldier)
+print("first team have:", len(team1))
+print("second team have:", len(team2))
+if len(team1) > len(team2):
+    hero1.level_up()
+    print("first team level up!!!congratulation!!!")
+elif len(team2) > len(team1):
+    hero2.level_up()
+    print("second team level up!!!congratulation!!!")
+print("level team one is:", hero1.level)
+print("level team two is:", hero2.level)
+if team1:
+    team1[0].follow_hero(hero1)
+    print("number soldier:", team1[0].number)
+    print("number hero of team:", hero1.number)
